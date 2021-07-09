@@ -1,38 +1,373 @@
+@font-face {
+    src: url("./assets/font/pokemon/PokemonHollow.ttf");
+    font-family: "PokemonH";
+}
+
+@font-face {
+    src: url("./assets/font/pokemon/PokemonSolid.ttf");
+    font-family: "PokemonS";
+}
+
+img {
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+#pokemon_img {
+    width: 110px;
+    height: 110px;
+}
+
+body {
+    margin: 0;
+    -moz-user-select: none; /* Mozilla Firefox */
+    -ms-user-select: none; /* Internet Explorer (не поддерживается) */
+    -o-user-select: none; /* Opera Presto (не поддерживается) */
+    -webkit-user-select: none; /* Google Chrome, Opera Next, Safari */
+    background-color: #c8ffc8;
+}
+
+.Btn {
+    margin-top: 30px;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 0 5px 5px #d7c956;
+    font-size: 48px;
+    width: 300px;
+    height: 80px;
+    cursor: pointer;
+    font-family: 'Georgia', sans-serif;
+}
+
+/* App Page */
+
 .App {
-  text-align: center;
+    background-image: url('./assets/img/pokemon-battle-background-9.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60% 100%;
+    margin: 50px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100vh;
+    min-height: 90vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* MainMenuComponent */
+
+.MainMenu_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Title {
+    font-size: 64px;
+    font-family: "PokemonS", monospace;
+    color: #1e69ff;
+    text-shadow: 5px 5px 5px #d7c956;
+    width: 900px;
+    height: 100px;
+    position: relative;
+    top: -150px;
+    left: 200px;
+    letter-spacing: 5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Logo {
+    position: relative;
+    top: -100px;
+    width: 900px;
+    height: 300px;
 }
 
-.App-link {
-  color: #61dafb;
+
+.MainMenu_Btns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.StartBtn_menu {
+    width: 600px;
+    float: left;
+    position: relative;
+    left: 150px
 }
+
+.StartBtn {
+    display: block;
+}
+
+.Game_level {
+    position: absolute;
+    top: -55px;
+    left: 400px;
+    display: none;
+    float: right;
+    z-index: 100;
+}
+
+.Btn_level {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    width: 200px;
+    height: 50px;
+    margin-top: 20px;
+    background-color: #fff;
+}
+
+.StartBtn_menu:hover .Game_level {
+    display: block;
+}
+
+
+/* GamePage component */
+
+.Card_wrap_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    width: 650px;
+    height: 900px;
+}
+
+.Flips {
+    font-size: 34px;
+    font-family: "PokemonS", monospace;
+    letter-spacing: 5px;
+    color: darkblue;
+    position: relative;
+    left: 200px
+}
+
+.Card_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 10px;
+    border: 3px solid black;
+    border-radius: 3%;
+    background: #57b157;
+    height: 1500px;
+}
+
+.Card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 110px;
+    height: 150px;
+    border: 2px solid black;
+    border-radius: 10%;
+    cursor: pointer;
+    background: #5ffcff;
+}
+
+.Card_back:hover {
+    filter: brightness(0.8);
+}
+
+
+.Exit_btn {
+    width: 86px;
+    height: 86px;
+    cursor: pointer;
+    position: absolute;
+    top: 70px;
+    right: 500px;
+}
+
+/* GameOver Page */
+
+.GameOver_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.GameOver_result {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.GameOver_result img {
+    width: 350px;
+    height: 350px;
+}
+
+.GameOver_Btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 100px;
+}
+
+.Result_title {
+    left: 150px;
+}
+
+/* Collection Page  */
+
+.Collection_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1100px;
+}
+
+.Collection_card_container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.Collection_card {
+    width: 100px;
+    margin: 5px 0 0 5px;
+}
+
+/* CardCollection component*/
+
+.CardCollection_container {
+    display: flex;
+    border: 2px blue solid;
+    border-radius: 10px;
+    background-color: #57b157;
+    width: 800px;
+    height: 700px;
+    padding: 10px;
+}
+
+.Card_img {
+    border: 2px solid deepskyblue;
+    border-radius: 50px;
+    width: 210px;
+    height: 210px;
+    background-color: #fff;
+    margin: 20px 0 0 20px;
+}
+
+.Card_title {
+    position: relative;
+    left: 200px;
+    top: -30px;
+    font-size: 48px;
+    font-family: "PokemonS", monospace;
+    color: #fadc85;
+    text-transform: capitalize;
+    letter-spacing: 5px;
+    text-decoration: underline;
+}
+
+.Card_ability_list {
+    position: relative;
+    top: 250px;
+    right: 470px;
+    font-family: "Roboto Thin", monospace;
+    font-size: 28px;
+    color: darkred;
+}
+
+.Card_type {
+    position: relative;
+    top: 100px;
+    font-size: 32px;
+}
+
+/* Spinner */
+
+.Spinner {
+    margin: 100px auto;
+    font-size: 25px;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    position: relative;
+    top: 40%;
+    text-indent: -9999em;
+    -webkit-animation: load5 1.1s infinite ease;
+    animation: load5 1.1s infinite ease;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+@-webkit-keyframes load5 {
+    0%,
+    100% {
+        box-shadow: 0em -2.6em 0em 0em #3f70e4, 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2), 2.5em 0em 0 0em rgba(63, 112, 228, 0.2), 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.2), 0em 2.5em 0 0em rgba(63, 112, 228, 0.2), -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.2), -2.6em 0em 0 0em rgba(63, 112, 228, 0.5), -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.7);
+    }
+    12.5% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.7), 1.8em -1.8em 0 0em #3f70e4, 2.5em 0em 0 0em rgba(63, 112, 228, 0.2), 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.2), 0em 2.5em 0 0em rgba(63, 112, 228, 0.2), -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.2), -2.6em 0em 0 0em rgba(63, 112, 228, 0.2), -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.5);
+    }
+    25% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.5), 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.7), 2.5em 0em 0 0em #3f70e4, 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.2), 0em 2.5em 0 0em rgba(63, 112, 228, 0.2), -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.2), -2.6em 0em 0 0em rgba(63, 112, 228, 0.2), -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2);
+    }
+    37.5% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.2), 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.5), 2.5em 0em 0 0em rgba(63, 112, 228, 0.7), 1.75em 1.75em 0 0em #3f70e4, 0em 2.5em 0 0em rgba(63, 112, 228, 0.2), -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.2), -2.6em 0em 0 0em rgba(63, 112, 228, 0.2), -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2);
+    }
+    50% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.2), 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2), 2.5em 0em 0 0em rgba(63, 112, 228, 0.5), 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.7), 0em 2.5em 0 0em #3f70e4, -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.2), -2.6em 0em 0 0em rgba(63, 112, 228, 0.2), -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2);
+    }
+    62.5% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.2), 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2), 2.5em 0em 0 0em rgba(63, 112, 228, 0.2), 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.5), 0em 2.5em 0 0em rgba(63, 112, 228, 0.7), -1.8em 1.8em 0 0em #3f70e4, -2.6em 0em 0 0em rgba(63, 112, 228, 0.2), -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2);
+    }
+    75% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.2), 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2), 2.5em 0em 0 0em rgba(63, 112, 228, 0.2), 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.2), 0em 2.5em 0 0em rgba(63, 112, 228, 0.5), -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.7), -2.6em 0em 0 0em #3f70e4, -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2);
+    }
+    87.5% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.2), 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2), 2.5em 0em 0 0em rgba(63, 112, 228, 0.2), 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.2), 0em 2.5em 0 0em rgba(63, 112, 228, 0.2), -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.5), -2.6em 0em 0 0em rgba(63, 112, 228, 0.7), -1.8em -1.8em 0 0em #3f70e4;
+    }
+}
+
+@keyframes load5 {
+    0%,
+    100% {
+        box-shadow: 0em -2.6em 0em 0em #3f70e4, 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2), 2.5em 0em 0 0em rgba(63, 112, 228, 0.2), 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.2), 0em 2.5em 0 0em rgba(63, 112, 228, 0.2), -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.2), -2.6em 0em 0 0em rgba(63, 112, 228, 0.5), -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.7);
+    }
+    12.5% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.7), 1.8em -1.8em 0 0em #3f70e4, 2.5em 0em 0 0em rgba(63, 112, 228, 0.2), 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.2), 0em 2.5em 0 0em rgba(63, 112, 228, 0.2), -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.2), -2.6em 0em 0 0em rgba(63, 112, 228, 0.2), -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.5);
+    }
+    25% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.5), 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.7), 2.5em 0em 0 0em #3f70e4, 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.2), 0em 2.5em 0 0em rgba(63, 112, 228, 0.2), -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.2), -2.6em 0em 0 0em rgba(63, 112, 228, 0.2), -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2);
+    }
+    37.5% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.2), 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.5), 2.5em 0em 0 0em rgba(63, 112, 228, 0.7), 1.75em 1.75em 0 0em #3f70e4, 0em 2.5em 0 0em rgba(63, 112, 228, 0.2), -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.2), -2.6em 0em 0 0em rgba(63, 112, 228, 0.2), -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2);
+    }
+    50% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.2), 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2), 2.5em 0em 0 0em rgba(63, 112, 228, 0.5), 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.7), 0em 2.5em 0 0em #3f70e4, -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.2), -2.6em 0em 0 0em rgba(63, 112, 228, 0.2), -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2);
+    }
+    62.5% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.2), 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2), 2.5em 0em 0 0em rgba(63, 112, 228, 0.2), 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.5), 0em 2.5em 0 0em rgba(63, 112, 228, 0.7), -1.8em 1.8em 0 0em #3f70e4, -2.6em 0em 0 0em rgba(63, 112, 228, 0.2), -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2);
+    }
+    75% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.2), 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2), 2.5em 0em 0 0em rgba(63, 112, 228, 0.2), 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.2), 0em 2.5em 0 0em rgba(63, 112, 228, 0.5), -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.7), -2.6em 0em 0 0em #3f70e4, -1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2);
+    }
+    87.5% {
+        box-shadow: 0em -2.6em 0em 0em rgba(63, 112, 228, 0.2), 1.8em -1.8em 0 0em rgba(63, 112, 228, 0.2), 2.5em 0em 0 0em rgba(63, 112, 228, 0.2), 1.75em 1.75em 0 0em rgba(63, 112, 228, 0.2), 0em 2.5em 0 0em rgba(63, 112, 228, 0.2), -1.8em 1.8em 0 0em rgba(63, 112, 228, 0.5), -2.6em 0em 0 0em rgba(63, 112, 228, 0.7), -1.8em -1.8em 0 0em #3f70e4;
+    }
+}
+
+
+
+
+
