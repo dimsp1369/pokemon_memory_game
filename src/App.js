@@ -1,28 +1,36 @@
 import './App.css';
 import React, {useEffect, useState} from "react";
 import {v4 as uuidv4} from 'uuid';
-import {getPokemonList, getPokemonName} from "./data/Api";
+import {getPokemonCardData, getPokemons} from "./data/Api";
 import GamePage from "./components/GamePage";
 import MainMenu from "./components/MainMenu";
 import GameOverPage from "./components/GameOverPage";
 import CollectionPage from "./components/CollectionPage";
-import {crossBtn} from "./assets/img/img";
+import {crossBtn, soundOff, soundOn} from "./assets/img/img";
 import Loader from "./components/Loader";
+import SoundComponent from "./components/SoundComponent";
 
 function App() {
     //Data array
-    const [pokemon, setPokemon] = useState([])
     const [pokemonList, setPokemonList] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [cardPerPage] = useState(50)
     const [pageNumber, setPageNumber] = useState([])
-
 
     //Game array
     const [pokemonCard, setPokemonCard] = useState([])
     const [chosenCard, setChosenCard] = useState([])
     const [wonCard, setWonCard] = useState([])
     const [flips, setFlips] = useState(null)
+
+    //Collection controllers
+    const [pokemonCardToggle, setPokemonCardToggle] = useState(false)
+    const [card, setCard] = useState({})
+
+    //SoundControl
+
+    const [isPlaying, setIsPlaying] = useState(false)
+
     //Fetching
     const [isLoading, setIsLoading] = useState(false)
     const [startToggle, setStartToggle] = useState(false)
@@ -34,28 +42,16 @@ function App() {
     const indexOfFirstCard = indexOfLastCard - cardPerPage;
     const currentCards = pokemonList.slice(indexOfFirstCard, indexOfLastCard)
 
-
     //Get the Pokemon's Name
     useEffect(() => {
-        setIsLoading(true)
-        getPokemonName().then(data => setPokemon(data))
+        getPokemons(setIsLoading).then(data => setPokemonList(data))
     }, [])
-
-    //Get the Pokemon List with data
-    useEffect(() => {
-        getPokemonList(pokemon).then(data => {
-            setPokemonList(data)
-            setIsLoading(false)
-        })
-     }, [pokemon])
-
 
     //Activate the function after to filling the choseCard array
     useEffect(() => {
         if (chosenCard.length === 2) checkMatches()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chosenCard])
-
 
     useEffect(() => {
         openCardCollection()
@@ -70,15 +66,13 @@ function App() {
             newList.push(pokemonList[Math.round(Math.random() * (pokemonList.length - 1))])
         }
         const copyList = newList.concat(newList).sort(() => Math.random() - 0.5).map(el => {
-            return {id: uuidv4(), ...el}
+            return {_id: uuidv4(), ...el}
         }) //Sort the card array and adding the Id for solving duplicate issue
         setWonCard([])
         setChosenCard([])
         setPokemonCard(copyList)
         setFlips(Math.ceil(copyList.length * level))
-
     }
-
 
     const flipCard = (index, card) => {
         const newCard = [...pokemonCard]
@@ -138,7 +132,6 @@ function App() {
         }, 500)
     }
 
-
     // Need remove to another component
     const pagination = () => {
         const newPageNumber = []
@@ -153,13 +146,23 @@ function App() {
     }
     // End //
 
+    const openPokemonCard = (card) => {
+        setPokemonCardToggle(true)
+        getPokemonCardData(card, setIsLoading).then(data => setCard(data))
+    }
+
     if (isLoading) return <Loader/>
 
     return (
         <div className="App">
+            <SoundComponent isPlaing={isPlaying}/>
+            <div className="Sound_controller" onClick={() => setIsPlaying(!isPlaying)}><img
+                src={!isPlaying ? soundOff : soundOn} alt=""/></div>
             {collectionToggle ?
                 <CollectionPage currentCards={currentCards} pageNumber={pageNumber} paginate={paginate}
-                                setCollectionToggle={setCollectionToggle}/> :
+                                setCollectionToggle={setCollectionToggle} pokemonCardToggle={pokemonCardToggle}
+                                card={card} setPokemonCardToggle={setPokemonCardToggle}
+                                openPokemonCard={openPokemonCard}/> :
                 <> {!startToggle ?
                     <MainMenu setStartToggle={setStartToggle} createGame={createGame} pagination={pagination}
                               setCollectionToggle={setCollectionToggle}/> : gameOver ?

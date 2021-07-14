@@ -1,16 +1,21 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {v4 as uuidv4} from 'uuid';
 import CollectionCard from "./CollectionCard";
 
-const CollectionPage = ({currentCards, setCollectionToggle, pageNumber, paginate}) => {
+const CollectionPage = ({
+                            currentCards,
+                            setCollectionToggle,
+                            pageNumber,
+                            paginate,
+                            openPokemonCard,
+                            pokemonCardToggle,
+                            setPokemonCardToggle,
+                            card
 
-        const [pokemonCard, setPokemonCard] = useState(false)
-        const [card, setCard] = useState({})
+                        }) => {
 
-
-        const openPokemonCard = (card) => {
-            setPokemonCard(true)
-            setCard(card)
+        const openPokemonCardCB = (el) => {
+            openPokemonCard(el)
         }
 
         const paginateCB = (pageNumber) => {
@@ -19,13 +24,13 @@ const CollectionPage = ({currentCards, setCollectionToggle, pageNumber, paginate
 
         return (
             <div className="Collection_container">
-                {!pokemonCard ? <>
+                {!pokemonCardToggle ? <>
                     <button className="Btn" onClick={() => setCollectionToggle(false)}>Main menu</button>
                     <div className="Collection_card_container">
                         {currentCards.map(el => <div className="Card Collection_card" key={uuidv4()}>
                             <img id="pokemon_img" src={el.img_url}
                                  style={!el.isOpen ? {filter: 'brightness(0) blur(10px)'} : {}} alt=""
-                                 onClick={el.isOpen ? () => openPokemonCard(el) : null}/></div>)}
+                                 onClick={!el.isOpen ? () => openPokemonCardCB(el) : null}/></div>)}
                     </div>
 
                     <div style={{marginTop: 10}}>
@@ -37,7 +42,7 @@ const CollectionPage = ({currentCards, setCollectionToggle, pageNumber, paginate
                             }}>{number}</a></span>
                         ))}
                     </div>
-                </> : <CollectionCard setPokemonCard={setPokemonCard} card={card}/>}
+                </> : <CollectionCard setPokemonCardToggle={setPokemonCardToggle} card={card}/>}
             </div>
         );
     }

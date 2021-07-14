@@ -1,6 +1,7 @@
 import React from 'react';
 import {logo} from "../assets/img/img";
 
+
 const MainMenu = ({setStartToggle, createGame, setCollectionToggle, pagination}) => {
 
     const createGameCB = (level) => {
@@ -10,7 +11,7 @@ const MainMenu = ({setStartToggle, createGame, setCollectionToggle, pagination})
 
     return (
         <div className="MainMenu_container">
-            <img className="Logo" src={logo} alt="LOGO"/>
+                <img className="Logo" src={logo} alt="LOGO"/>
             <span className='Title'>Match 'em All!</span>
             <div className="MainMenu_Btns">
                 <div className="StartBtn_menu">

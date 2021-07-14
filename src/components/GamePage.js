@@ -7,6 +7,8 @@ const GamePage = ({pokemon, flipCard, index}) => {
         flipCard(index, card)
     }
 
+
+
     return (
         <div className="Card Card_flip" onClick={pokemon.active === true ? () => flipCardCB(index, pokemon) : null}>
             {!pokemon.visible ? <img id="pokemon_img" className="Card_back" src={Pokeball}
