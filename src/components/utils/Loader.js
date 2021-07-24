@@ -2,7 +2,7 @@ import React from 'react';
 
 const Loader = () => {
     return (
-            <div className="Spinner"/>
+        <div className="Spinner"/>
     );
 };
 

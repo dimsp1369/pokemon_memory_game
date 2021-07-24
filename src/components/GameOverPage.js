@@ -1,17 +1,17 @@
 import React from 'react';
 import {winImg} from "../assets/img/img";
 import {loseImg} from "../assets/img/img";
+import {useDispatch} from "react-redux";
+import {backToMain, createNewGame} from "../redux/actions/actions";
 
-const GameOverPage = ({setStartToggle, createGame, flips, wonCard, pokemonCard}) => {
+const GameOverPage = ({flips, wonCard, gameStack}) => {
 
-    const tryAgain = () => {
-        createGame()
-    }
+    const dispatch = useDispatch()
 
     return (
         <div className='GameOver_container'>
             <div className="GameOver_result">
-                {flips !== 0 || wonCard.length === pokemonCard.length ?
+                {flips !== 0 || wonCard.length === gameStack.length ?
                     <>
                         <span className='Title Result_title'>You match 'em all</span>
                         <img src={winImg} alt="Win"/>
@@ -22,8 +22,8 @@ const GameOverPage = ({setStartToggle, createGame, flips, wonCard, pokemonCard})
                     </>}
             </div>
             <div className='GameOver_Btn'>
-                <button className="Btn" onClick={() => tryAgain()}>Try Again</button>
-                <button className="Btn" onClick={() => setStartToggle(false)}>Main Menu</button>
+                <button className="Btn" onClick={() => dispatch(createNewGame())}>Try Again</button>
+                <button className="Btn" onClick={() => dispatch(backToMain())}>Main Menu</button>
             </div>
         </div>
     );
