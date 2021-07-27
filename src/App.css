@@ -18,12 +18,14 @@ img {
 }
 
 #pokemon_img {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
 }
 
 body {
     margin: 0;
+    height: 100%;
+    width: 100%;
     -moz-user-select: none; /* Mozilla Firefox */
     -ms-user-select: none; /* Internet Explorer (не поддерживается) */
     -o-user-select: none; /* Opera Presto (не поддерживается) */
@@ -32,23 +34,23 @@ body {
 }
 
 .Btn {
-    margin-top: 30px;
+    margin-top: 5%;
     border: none;
     border-radius: 30px;
     box-shadow: 0 0 5px 5px #d7c956;
-    font-size: 48px;
+    font-size: 42px;
     width: 300px;
-    height: 80px;
+    height: 70px;
     cursor: pointer;
     font-family: 'Georgia', sans-serif;
 }
 
 .Sound_controller {
-    width: 76px;
-    height: 76px;
+    width: 50px;
+    height: 50px;
     position: absolute;
-    bottom: 70px;
-    left: 440px;
+    top: 2%;
+    left: 17%;
 }
 
 /* App Page */
@@ -57,13 +59,9 @@ body {
     background-image: url('./assets/img/pokemon-battle-background-9.png');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 60% 100%;
-    margin: 50px auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 100vh;
-    min-height: 90vh;
+    background-size: 70% 100%;
+    /*min-width: 100vh;*/
+    min-height: 100vh;
 }
 
 /* MainMenuComponent */
@@ -83,15 +81,15 @@ body {
     text-shadow: 5px 5px 5px #d7c956;
     width: 900px;
     height: 100px;
-    position: relative;
-    top: -150px;
-    left: 200px;
+    position: absolute;
+    top: 30%;
+    text-align: center;
     letter-spacing: 5px;
 }
 
 .Logo {
-    position: relative;
-    top: -100px;
+    position: absolute;
+    top: 1%;
     width: 900px;
     height: 300px;
 }
@@ -102,6 +100,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    bottom: 10%;
 }
 
 .StartBtn_menu {
@@ -111,13 +111,9 @@ body {
     left: 150px
 }
 
-.StartBtn {
-    display: block;
-}
-
 .Game_level {
     position: absolute;
-    top: -55px;
+    top: 10px;
     left: 400px;
     display: none;
     float: right;
@@ -133,32 +129,35 @@ body {
     height: 50px;
     margin-top: 20px;
     background-color: #fff;
+    color: black;
+}
+
+.Btn_level:hover, .Card_back:hover, .Btn:hover {
+    filter: brightness(0.8);
 }
 
 .StartBtn_menu:hover .Game_level {
     display: block;
 }
 
-
 /* GamePage component */
 
 .Card_wrap_container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    width: 650px;
-    height: 900px;
+    position: absolute;
+    left: calc(50% - 350px);
+    width: 700px;
+    height: 850px;
 }
 
 .Flips {
     font-size: 34px;
     font-family: "PokemonS", monospace;
     letter-spacing: 5px;
-    color: darkblue;
+    color: black;
     position: relative;
-    left: 200px
+    left: 70%
 }
 
 .Card_container {
@@ -186,35 +185,26 @@ body {
     background: #5ffcff;
 }
 
-.Card_back:hover {
-    filter: brightness(0.8);
-}
-
-
 .Exit_btn {
-    width: 86px;
-    height: 86px;
+    width: 70px;
+    height: 70px;
     cursor: pointer;
     position: absolute;
-    top: 70px;
-    right: 500px;
+    top: 20px;
+    left: 900px;
+    z-index: 1;
 }
 
 /* GameOver Page */
 
-.GameOver_container {
-    display: flex;
-    flex-direction: column;
-}
-
 .GameOver_result {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
 }
 
 .GameOver_result img {
+    position: absolute;
+    top: 25%;
+    left: calc(50% - 165px);
     width: 350px;
     height: 350px;
 }
@@ -223,12 +213,15 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-    top: 100px;
+    position: absolute;
+    bottom: 10%;
+    left: calc(50% - 150px);
 }
 
 .Result_title {
-    left: 150px;
+    position: absolute;
+    top: 2%;
+    left: 26%;
 }
 
 /* Collection Page  */
@@ -236,29 +229,30 @@ body {
 .Collection_container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    width: 1100px;
+    width: 65%;
+    position: absolute;
+    left: 17.5%;
 }
 
 .Collection_card_container {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 30px;
+    gap: 5px;
     justify-content: center;
-}
-
-.Collection_card {
-    width: 100px;
-    margin: 5px 0 0 5px;
 }
 
 /* CardCollection component*/
 
 .CardCollection_container {
     display: flex;
-    border: 2px blue solid;
+    border: 2px black solid;
+    margin-top: 10%;
     border-radius: 10px;
+    position: absolute;
+    left: calc(50% - 400px);
+    bottom: 100px;
     background-color: #57b157;
     width: 800px;
     height: 700px;
@@ -266,7 +260,7 @@ body {
 }
 
 .Card_img {
-    border: 2px solid deepskyblue;
+    border: 2px solid black;
     border-radius: 50px;
     width: 210px;
     height: 210px;
@@ -275,30 +269,38 @@ body {
 }
 
 .Card_title {
-    position: relative;
-    left: 200px;
-    top: -30px;
+    position: absolute;
+    left: 400px;
+    top: 0px;
     font-size: 48px;
     font-family: "PokemonS", monospace;
     color: #fadc85;
     text-transform: capitalize;
     letter-spacing: 5px;
     text-decoration: underline;
+    text-align: center;
 }
 
 .Card_ability_list {
-    position: relative;
-    top: 250px;
-    right: 470px;
+    position: absolute;
+    top: 320px;
+    right: 580px;
     font-family: "Roboto Thin", monospace;
     font-size: 28px;
     color: darkred;
 }
 
 .Card_type {
-    position: relative;
-    top: 100px;
+    position: absolute;
+    text-align: center;
+    top: 120px;
+    right: 260px;
     font-size: 32px;
+}
+
+.Exit_description {
+    left: 61em;
+    top: -100px;
 }
 
 /* Spinner */
@@ -317,6 +319,16 @@ body {
     -webkit-transform: translateZ(0);
     -ms-transform: translateZ(0);
     transform: translateZ(0);
+}
+
+.Pagination {
+    padding-left: 10px;
+    text-decoration: none;
+    font-size: 24px;
+    position: relative;
+    top: 40px;
+    font-family: "PokemonS", monospace;
+    margin-left: 10px;
 }
 
 @-webkit-keyframes load5 {

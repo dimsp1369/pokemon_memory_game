@@ -1,185 +1,49 @@
 import './App.css';
-import React, {useEffect, useState} from "react";
-import {v4 as uuidv4} from 'uuid';
-import {getPokemonCardData, getPokemons} from "./data/Api";
-import GamePage from "./components/GamePage";
-import MainMenu from "./components/MainMenu";
+import React, {useEffect} from "react";
+import MainMenu from "./components/mainMenu/MainMenu";
 import GameOverPage from "./components/GameOverPage";
-import CollectionPage from "./components/CollectionPage";
-import {crossBtn, soundOff, soundOn} from "./assets/img/img";
-import Loader from "./components/Loader";
-import SoundComponent from "./components/SoundComponent";
+import CollectionPage from "./components/collection/CollectionPage";
+import {connect, useDispatch} from "react-redux";
+import GameBoard from "./components/GameBoard";
+import {getPokemons} from "./redux/actions/asyncActions";
+import Loader from "./components/utils/Loader";
+import {Route, Switch} from "react-router-dom";
+import {isLoading} from "./redux/selectors";
+import Credits from "./components/Credits";
+import CollectionCard from "./components/collection/CollectionCard";
+import {loading} from "./redux/actions/actions";
 
-function App() {
-    //Data array
-    const [pokemonList, setPokemonList] = useState([])
-    const [currentPage, setCurrentPage] = useState(1)
-    const [cardPerPage] = useState(50)
-    const [pageNumber, setPageNumber] = useState([])
 
-    //Game array
-    const [pokemonCard, setPokemonCard] = useState([])
-    const [chosenCard, setChosenCard] = useState([])
-    const [wonCard, setWonCard] = useState([])
-    const [flips, setFlips] = useState(null)
+function App({isLoading}) {
 
-    //Collection controllers
-    const [pokemonCardToggle, setPokemonCardToggle] = useState(false)
-    const [card, setCard] = useState({})
-
-    //SoundControl
-
-    const [isPlaying, setIsPlaying] = useState(false)
-
-    //Fetching
-    const [isLoading, setIsLoading] = useState(false)
-    const [startToggle, setStartToggle] = useState(false)
-    const [gameOver, setGameOver] = useState(false)
-    const [collectionToggle, setCollectionToggle] = useState(false)
-
-    //Get currentCard
-    const indexOfLastCard = currentPage * cardPerPage;
-    const indexOfFirstCard = indexOfLastCard - cardPerPage;
-    const currentCards = pokemonList.slice(indexOfFirstCard, indexOfLastCard)
-
-    //Get the Pokemon's Name
+    const dispatch = useDispatch()
+    // Get pokemon list
     useEffect(() => {
-        getPokemons(setIsLoading).then(data => setPokemonList(data))
-    }, [])
-
-    //Activate the function after to filling the choseCard array
-    useEffect(() => {
-        if (chosenCard.length === 2) checkMatches()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [chosenCard])
-
-    useEffect(() => {
-        openCardCollection()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [wonCard])
-
-    const createGame = (level = 2.5) => {
-        setGameOver(false)
-        const n = 10; // number of card
-        const newList = []
-        while (newList.length < n) {
-            newList.push(pokemonList[Math.round(Math.random() * (pokemonList.length - 1))])
-        }
-        const copyList = newList.concat(newList).sort(() => Math.random() - 0.5).map(el => {
-            return {_id: uuidv4(), ...el}
-        }) //Sort the card array and adding the Id for solving duplicate issue
-        setWonCard([])
-        setChosenCard([])
-        setPokemonCard(copyList)
-        setFlips(Math.ceil(copyList.length * level))
-    }
-
-    const flipCard = (index, card) => {
-        const newCard = [...pokemonCard]
-        const newChosenCard = [...chosenCard]
-        let newFlips = flips
-        if (newChosenCard.length !== 2) {
-            newCard.forEach((el, i) => {
-                if (i === index) {
-                    el.visible = true
-                    el.active = false
-                }
-            })
-            newChosenCard.push(card)
-            newFlips--
-        }
-        setPokemonCard(newCard)
-        setChosenCard(newChosenCard)
-        setFlips(newFlips)
-    }
-
-    const checkMatches = () => {
-        const newWonCard = [...wonCard]
-        const newChosenCard = [...chosenCard]
-        const newCard = [...pokemonCard]
-        if (newChosenCard[0].name === newChosenCard[1].name) {
-            newWonCard.push(newChosenCard[0])
-            newWonCard.push(newChosenCard[1])
-            setChosenCard([])
-        } else {
-            setTimeout(() => {
-                newCard.forEach(el => {
-                    if (el === newChosenCard[0] || el === newChosenCard[1]) {
-                        el.visible = false
-                        el.active = true
-                    }
-                })
-                setPokemonCard(newCard)
-                setChosenCard([])
-            }, 500)
-        }
-        setWonCard(newWonCard)
-
-    }
-
-    const openCardCollection = () => {
-        const newList = [...pokemonList]
-        for (let i = 0; i < newList.length; i++) {
-            wonCard.map(el => el.name === newList[i].name ? newList[i].isOpen = true : el)
-        }
-        setPokemonList(newList)
-    }
-
-    //Activator for GameOver
-    if ((wonCard.length === pokemonCard.length && wonCard.length !== 0) || flips === 0) {
-        setTimeout(() => {
-            setGameOver(true)
-        }, 500)
-    }
-
-    // Need remove to another component
-    const pagination = () => {
-        const newPageNumber = []
-        for (let i = 1; i <= Math.ceil(pokemonList.length / cardPerPage); i++) {
-            newPageNumber.push(i)
-        }
-        setPageNumber(newPageNumber)
-    }
-
-    const paginate = (pageNumber) => {
-        setCurrentPage(pageNumber)
-    }
-    // End //
-
-    const openPokemonCard = (card) => {
-        setPokemonCardToggle(true)
-        getPokemonCardData(card, setIsLoading).then(data => setCard(data))
-    }
+        dispatch(loading())
+        dispatch(getPokemons())
+    }, [dispatch])
 
     if (isLoading) return <Loader/>
 
     return (
         <div className="App">
-            <SoundComponent isPlaing={isPlaying}/>
-            <div className="Sound_controller" onClick={() => setIsPlaying(!isPlaying)}><img
-                src={!isPlaying ? soundOff : soundOn} alt=""/></div>
-            {collectionToggle ?
-                <CollectionPage currentCards={currentCards} pageNumber={pageNumber} paginate={paginate}
-                                setCollectionToggle={setCollectionToggle} pokemonCardToggle={pokemonCardToggle}
-                                card={card} setPokemonCardToggle={setPokemonCardToggle}
-                                openPokemonCard={openPokemonCard}/> :
-                <> {!startToggle ?
-                    <MainMenu setStartToggle={setStartToggle} createGame={createGame} pagination={pagination}
-                              setCollectionToggle={setCollectionToggle}/> : gameOver ?
-                        <GameOverPage setStartToggle={setStartToggle} createGame={createGame} flips={flips}
-                                      pokemonCard={pokemonCard} wonCard={wonCard}/> :
-                        <div className="Card_wrap_container">
-                            <img className="Exit_btn" src={crossBtn} alt="" onClick={() => setStartToggle(false)}/>
-                            <div className='Flips'>Flips - {flips}</div>
-                            <div className="Card_container">
-                                {pokemonCard.map((pokemon, index) => <GamePage key={uuidv4()} pokemon={pokemon}
-                                                                               flipCard={flipCard}
-                                                                               index={index}/>)}
-                            </div>
-                        </div>}
-                </>}
+            <Switch>
+                <Route exact path="/" render={() => <MainMenu/>}/>
+                <Route exact path="/CollectionPage" render={() => <CollectionPage/>}/>
+                <Route path="/GameBoard" render={() => <GameBoard/>}/>
+                <Route path="/GameOver" render={() => <GameOverPage/>}/>
+                <Route path="/Credits" render={() => <Credits/>}/>
+                <Route path="/CollectionCard" render={() => <CollectionCard/>}/>
+            </Switch>
+
         </div>
     );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        isLoading: isLoading(state),
+    }
+}
+
+export default connect(mapStateToProps)(App);

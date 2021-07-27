@@ -1,26 +1,24 @@
 import axios from "axios";
+import {GET_POKEMONS, GET_CARD_DESCRIPTION} from "../types";
 
-export const getPokemons = async (setIsLoading) => {
-    setIsLoading(true)
-    const res = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=200')
-    const pokemon = res.data.results
-    for (let i = 0; i < pokemon.length; i++) {
-        const data = await axios.get(pokemon[i].url)
-        Object.assign(pokemon[i], {
+
+export const getPokemons = () => async dispatch => {
+    const res = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=400')
+    const pokemons = res.data.results
+    pokemons.map(async pokemon => {
+        const data = await axios.get(pokemon.url)
+        Object.assign(pokemon, {
             id: data.data.id,
             img_url: data.data.sprites.front_default,
             visible: false,
             active: true,
             isOpen: false
         })
-    }
-    setIsLoading(false)
-    return pokemon
+    })
+    dispatch({type: GET_POKEMONS, payload: pokemons})
 }
 
-export const getPokemonCardData = async (card, setIsLoading) => {
-    // const newCard = JSON.parse(JSON.stringify(card))
-    setIsLoading(true)
+export const openCardDescription = (card) => async dispatch => {
     const abilityData = []
     const ability = await axios.get(`https://pokeapi.co/api/v2/pokemon/${card.id}/`).then(res => res.data.abilities.map(el => axios.get(`${el.ability.url}`)))
     await Promise.all(ability).then(res => res.map(el => abilityData.push(el.data)))
@@ -36,6 +34,8 @@ export const getPokemonCardData = async (card, setIsLoading) => {
             type: type.data.types.map(el => el.type.name)
         }
     })
-    setIsLoading(false)
-    return card
+    dispatch({
+        type: GET_CARD_DESCRIPTION,
+        payload: card
+    })
 }
