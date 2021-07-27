@@ -1,23 +1,28 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import {openCurrentPage} from "../../redux/actions/actions";
+import {pageNumber} from "../../redux/selectors";
+import {v4 as uuidv4} from "uuid";
+import {NavLink} from "react-router-dom";
 
-const Pagination = () => {
+const Pagination = ({pageNumber}) => {
 
     const dispatch = useDispatch()
-    const pageNumber = useSelector(state => state.gameReducer.pagination.pageNumber)
 
     return (
-        <div style={{marginTop: 10}}>
+        <div>
             {pageNumber.map(number => (
-                <span key={number} onClick={() => dispatch(openCurrentPage(number))}><a href="!#" style={{
-                    paddingLeft: 10,
-                    textDecoration: "none",
-                    fontSize: 24
-                }}>{number}</a></span>
+                <span key={uuidv4()} onClick={() => dispatch(openCurrentPage(number))}>
+                    <NavLink to={number} className="Pagination">{number}</NavLink></span>
             ))}
         </div>
     );
 };
 
-export default Pagination;
+const mapStateToProps = (state) => {
+    return {
+        pageNumber: pageNumber(state),
+    }
+}
+
+export default connect(mapStateToProps)(Pagination);

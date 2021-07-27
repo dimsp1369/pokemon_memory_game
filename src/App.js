@@ -1,40 +1,49 @@
 import './App.css';
-import React, {useState} from "react";
+import React, {useEffect} from "react";
 import MainMenu from "./components/mainMenu/MainMenu";
 import GameOverPage from "./components/GameOverPage";
 import CollectionPage from "./components/collection/CollectionPage";
-import {soundOff, soundOn} from "./assets/img/img";
-import SoundComponent from "./components/SoundComponent";
-import {useSelector} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import GameBoard from "./components/GameBoard";
+import {getPokemons} from "./redux/actions/asyncActions";
+import Loader from "./components/utils/Loader";
+import {Route, Switch} from "react-router-dom";
+import {isLoading} from "./redux/selectors";
+import Credits from "./components/Credits";
+import CollectionCard from "./components/collection/CollectionCard";
+import {loading} from "./redux/actions/actions";
 
 
-function App() {
+function App({isLoading}) {
 
-    const gameStack = useSelector(state => state.gameReducer.gameStack)
-    const wonCard = useSelector(state => state.gameReducer.wonCard)
-    const flips = useSelector(state => state.gameReducer.flips)
-    const isGameOver = useSelector(state => state.gameReducer.isGameOver)
-    const isStartGame = useSelector(state => state.gameReducer.isStartGame)
-    // Collection
-    const isCollection = useSelector(state => state.gameReducer.collection.isCollection)
+    const dispatch = useDispatch()
+    // Get pokemon list
+    useEffect(() => {
+        dispatch(loading())
+        dispatch(getPokemons())
+    }, [dispatch])
 
-    //SoundControl
-    const [isPlaying, setIsPlaying] = useState(false)
+    if (isLoading) return <Loader/>
 
     return (
         <div className="App">
-            <SoundComponent isPlaying={isPlaying}/>
-            <div className="Sound_controller" onClick={() => setIsPlaying(!isPlaying)}><img
-                src={!isPlaying ? soundOff : soundOn} alt=""/></div>
-            {isCollection ?
-                <CollectionPage/> : <>
-                    {!isStartGame ? <MainMenu/> : isGameOver ?
-                        <GameOverPage flips={flips} gameStack={gameStack} wonCard={wonCard}/> :
-                        <GameBoard flips={flips} gameStack={gameStack} wonCard={wonCard}/>}
-                </>}
+            <Switch>
+                <Route exact path="/" render={() => <MainMenu/>}/>
+                <Route exact path="/CollectionPage" render={() => <CollectionPage/>}/>
+                <Route path="/GameBoard" render={() => <GameBoard/>}/>
+                <Route path="/GameOver" render={() => <GameOverPage/>}/>
+                <Route path="/Credits" render={() => <Credits/>}/>
+                <Route path="/CollectionCard" render={() => <CollectionCard/>}/>
+            </Switch>
+
         </div>
     );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        isLoading: isLoading(state),
+    }
+}
+
+export default connect(mapStateToProps)(App);

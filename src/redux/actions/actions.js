@@ -1,12 +1,11 @@
 import {
-    ADD_TO_COLLECTION,
-    BACK_TO_MAINMENU,
-    CHECK_MATCHES, CLOSED_CARD,
+    ADD_TO_COLLECTION, BACK_TO_MAINMENU,
+    CHECK_MATCHES,
     CREATE_NEW_GAME,
     CURRENT_PAGE,
     FLIP_CARD,
-    GAME_OVER, IS_LOADING,
-    OPEN_COLLECTION, PAGINATION
+    IS_LOADING, IS_MUSIC_PLAY, OPEN_COLLECTION,
+    PAGINATION
 } from "../types";
 
 // gameReducer types
@@ -20,7 +19,7 @@ export const flipCard = (index, pokemon) => ({
 })
 export const backToMain = () => ({type: BACK_TO_MAINMENU})
 export const checkMatches = () => ({type: CHECK_MATCHES})
-export const gameOver = () => ({type: GAME_OVER})
+
 export const loading = () => ({type: IS_LOADING})
 
 // collectionReducer types
@@ -29,8 +28,6 @@ export const openCollection = (bool) => ({
     payload: bool
 })
 export const addToCollection = () => ({type: ADD_TO_COLLECTION})
-export const closedCardDescription = () => ({type: CLOSED_CARD})
-
 
 // pagination types
 export const pagination = () => ({type: PAGINATION})
@@ -38,3 +35,5 @@ export const openCurrentPage = (number) => ({
     type: CURRENT_PAGE,
     payload: number
 })
+
+export const playMusic = (bool) => ({type: IS_MUSIC_PLAY, payload: bool})

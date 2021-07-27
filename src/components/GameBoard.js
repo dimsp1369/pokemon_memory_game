@@ -1,35 +1,39 @@
 import React, {useEffect} from 'react';
 import {crossBtn, Pokeball} from "../assets/img/img";
-import {addToCollection, backToMain, checkMatches, flipCard, gameOver} from "../redux/actions/actions";
+import {addToCollection, backToMain, checkMatches, flipCard} from "../redux/actions/actions";
 import {v4 as uuidv4} from "uuid";
-import {useDispatch, useSelector} from "react-redux";
+import {connect, useDispatch} from "react-redux";
+import {chosenCard, flips, gameStack, wonCard} from "../redux/selectors";
+import {NavLink, useHistory} from "react-router-dom";
 
-const GameBoard = ({gameStack, flips, wonCard}) => {
+const GameBoard = ({gameStack, flips, wonCard, chosenCard}) => {
 
     const dispatch = useDispatch()
-    const chosenCard = useSelector(state => state.gameReducer.chosenCard)
+    let history = useHistory()
 
-    //Activator for GameOver
-    if ((wonCard.length === gameStack.length && wonCard.length !== 0) || flips === 0) {
-        setTimeout(() => {
-            dispatch(gameOver())
-        }, 500)
-    }
-
-    //Activate the function after to filling the choseCard array
+    // Check matches card
     useEffect(() => {
         if (chosenCard.length === 2) setTimeout(() => {
             dispatch(checkMatches())
         }, 500)
     }, [chosenCard, dispatch])
-
+    //Add card in collection
     useEffect(() => {
         dispatch(addToCollection())
     }, [wonCard, dispatch])
 
+    //Activator for GameOver
+    if ((wonCard.length === gameStack.length && wonCard.length !== 0) || flips === 0) {
+        setTimeout(() => {
+            return history.push("/GameOver")
+        }, 500)
+    }
+
     return (
         <div className="Card_wrap_container">
-            <img className="Exit_btn" src={crossBtn} alt="" onClick={() => dispatch(backToMain())}/>
+            <NavLink to="/">
+                <img className="Exit_btn" src={crossBtn} alt="" onClick={() => dispatch(backToMain())}/>
+            </NavLink>
             <div className='Flips'>Flips - {flips}</div>
             <div className="Card_container">
                 {gameStack.map((pokemon, index) => <div key={uuidv4()} className="Card Card_flip"
@@ -42,5 +46,13 @@ const GameBoard = ({gameStack, flips, wonCard}) => {
         </div>
     );
 };
+const mapStateToProps = (state) => {
+    return {
+        gameStack: gameStack(state),
+        flips: flips(state),
+        wonCard: wonCard(state),
+        chosenCard: chosenCard(state),
+    }
+}
 
-export default GameBoard;
+export default connect(mapStateToProps)(GameBoard);

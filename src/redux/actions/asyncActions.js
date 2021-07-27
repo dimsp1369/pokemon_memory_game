@@ -3,7 +3,7 @@ import {GET_POKEMONS, GET_CARD_DESCRIPTION} from "../types";
 
 
 export const getPokemons = () => async dispatch => {
-    const res = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=1000')
+    const res = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=400')
     const pokemons = res.data.results
     pokemons.map(async pokemon => {
         const data = await axios.get(pokemon.url)

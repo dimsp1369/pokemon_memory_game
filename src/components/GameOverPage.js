@@ -1,32 +1,45 @@
 import React from 'react';
-import {winImg} from "../assets/img/img";
-import {loseImg} from "../assets/img/img";
-import {useDispatch} from "react-redux";
+import {loseImg, winImg} from "../assets/img/img";
+import {connect, useDispatch} from "react-redux";
 import {backToMain, createNewGame} from "../redux/actions/actions";
+import {flips, gameStack, wonCard} from "../redux/selectors";
+import {NavLink} from "react-router-dom";
 
-const GameOverPage = ({flips, wonCard, gameStack}) => {
+const GameOverPage = ({gameStack, flips, wonCard}) => {
 
     const dispatch = useDispatch()
 
     return (
-        <div className='GameOver_container'>
-            <div className="GameOver_result">
+        <div className="GameOver_result">
+            <>
                 {flips !== 0 || wonCard.length === gameStack.length ?
                     <>
                         <span className='Title Result_title'>You match 'em all</span>
                         <img src={winImg} alt="Win"/>
                     </> :
                     <>
-                        <span className='Title'>You lose them</span>
-                        <img src={loseImg} alt="Lose" style={{width: 450}}/>
+                        <span className='Title Result_title'>You lose them</span>
+                        <img src={loseImg} alt="Lose"/>
                     </>}
-            </div>
+            </>
             <div className='GameOver_Btn'>
-                <button className="Btn" onClick={() => dispatch(createNewGame())}>Try Again</button>
-                <button className="Btn" onClick={() => dispatch(backToMain())}>Main Menu</button>
+                <NavLink to="/GameBoard">
+                    <button className="Btn" onClick={() => dispatch(createNewGame())}>Try Again</button>
+                </NavLink>
+                <NavLink to="/">
+                    <button className="Btn" onClick={() => dispatch(backToMain())}>Main Menu</button>
+                </NavLink>
             </div>
         </div>
     );
 };
 
-export default GameOverPage;
+const mapStateToProps = (state) => {
+    return {
+        gameStack: gameStack(state),
+        flips: flips(state),
+        wonCard: wonCard(state),
+    }
+}
+
+export default connect(mapStateToProps)(GameOverPage);

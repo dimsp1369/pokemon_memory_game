@@ -1,11 +1,15 @@
 import {
-    BACK_TO_MAINMENU,
+    ADD_TO_COLLECTION, BACK_TO_MAINMENU,
     CHECK_MATCHES,
-    CREATE_NEW_GAME, CURRENT_PAGE,
+    CREATE_NEW_GAME,
+    CURRENT_PAGE,
     FLIP_CARD,
-    GAME_OVER,
-    GET_POKEMONS, GET_CARD_DESCRIPTION,
-    OPEN_COLLECTION, PAGINATION, ADD_TO_COLLECTION, CLOSED_CARD, IS_LOADING
+    GET_CARD_DESCRIPTION,
+    GET_POKEMONS,
+    IS_LOADING,
+    IS_MUSIC_PLAY,
+    OPEN_COLLECTION,
+    PAGINATION
 } from "../types";
 import {v4 as uuidv4} from "uuid";
 
@@ -15,23 +19,20 @@ const initialState = {
     wonCard: [],
     chosenCard: [],
     flips: null,
-    isStartGame: false,
-    isGameOver: false,
     isLoading: true,
-    isOpenCard: false,
+    isMusicPlay: false,
     collection: {
         cardDescription: {},
-        isCollection: false
     },
     pagination: {
         currentPage: 1,
-        cardPerPage: 50,
+        cardPerPage: 40,
         pageNumber: [],
         currentCards: []
     }
 }
 
-const gameReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     let newPokemonList = [...state.pokemons]
     let newGameStack = [...state.gameStack]
     let newChosenCard = [...state.chosenCard]
@@ -58,8 +59,6 @@ const gameReducer = (state = initialState, action) => {
             return {
                 ...state,
                 gameStack: copyList,
-                isGameOver: false,
-                isStartGame: true,
                 wonCard: [],
                 chosenCard: [],
                 flips: newFlips
@@ -77,7 +76,7 @@ const gameReducer = (state = initialState, action) => {
             }
             return {...state, gameStack: newGameStack, chosenCard: newChosenCard, flips: newFlips}
         case BACK_TO_MAINMENU:
-            return {...state, gameStack: [], chosenCard: [], wonCard: [], flips: null, isStartGame: false}
+            return {...state, gameStack: [], chosenCard: [], wonCard: [], flips: null}
         case CHECK_MATCHES:
             if (newChosenCard[0].name === newChosenCard[1].name) {
                 newWonCard.push(newChosenCard[0])
@@ -91,12 +90,9 @@ const gameReducer = (state = initialState, action) => {
                 })
             }
             return {...state, gameStack: newGameStack, chosenCard: [], wonCard: newWonCard}
-        case GAME_OVER:
-            return {...state, isGameOver: true}
         case OPEN_COLLECTION:
             return {
                 ...state,
-                collection: {...state.collection, isCollection: action.payload},
                 pagination: {...state.pagination, currentPage: 1, pageNumber: [], currentCards: []}
             }
         case ADD_TO_COLLECTION:
@@ -105,9 +101,8 @@ const gameReducer = (state = initialState, action) => {
             }
             return {...state, pokemons: newPokemonList}
         case GET_CARD_DESCRIPTION:
-            return {...state, isOpenCard: true, collection: {...state.collection, cardDescription: action.payload}}
-        case CLOSED_CARD:
-            return {...state, isOpenCard: false, collection: {...state.collection, cardDescription: {}}}
+            console.log(action.payload)
+            return {...state, isLoading: false, collection: {...state.collection, cardDescription: action.payload}}
         case PAGINATION:
             const newPageNumber = [...state.pagination.pageNumber]
             newCurrentCards = newPokemonList.slice(0, state.pagination.cardPerPage)
@@ -119,16 +114,19 @@ const gameReducer = (state = initialState, action) => {
                 pagination: {...state.pagination, pageNumber: newPageNumber, currentCards: newCurrentCards}
             }
         case CURRENT_PAGE:
-            const indexOfLastCard = state.pagination.currentPage * state.pagination.cardPerPage;
+            const indexOfLastCard = action.payload * state.pagination.cardPerPage;
             const indexOfFirstCard = indexOfLastCard - state.pagination.cardPerPage;
             newCurrentCards = newPokemonList.slice(indexOfFirstCard, indexOfLastCard)
             return {
                 ...state,
                 pagination: {...state.pagination, currentPage: action.payload, currentCards: newCurrentCards}
             }
+        case IS_MUSIC_PLAY:
+            return {...state, isMusicPlay: action.payload}
         default:
             return state
     }
 }
 
-export default gameReducer
+
+export default reducer
