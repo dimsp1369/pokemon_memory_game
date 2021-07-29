@@ -7,7 +7,7 @@ import {connect, useDispatch} from "react-redux";
 import GameBoard from "./components/GameBoard";
 import {getPokemons} from "./redux/actions/asyncActions";
 import Loader from "./components/utils/Loader";
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, Redirect} from "react-router-dom";
 import {isLoading} from "./redux/selectors";
 import Credits from "./components/Credits";
 import CollectionCard from "./components/collection/CollectionCard";
@@ -26,6 +26,7 @@ function App({isLoading}) {
 
     return (
         <div className="App">
+            <Redirect to="/"/>
             <Switch>
                 <Route exact path="/" render={() => <MainMenu/>}/>
                 <Route exact path="/CollectionPage" render={() => <CollectionPage/>}/>
