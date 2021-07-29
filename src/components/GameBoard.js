@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
-import {crossBtn, Pokeball} from "../assets/img/img";
-import {addToCollection, backToMain, checkMatches, flipCard} from "../redux/actions/actions";
+import {Pokeball} from "../assets/img/img";
+import {addToCollection, checkMatches, flipCard} from "../redux/actions/actions";
 import {v4 as uuidv4} from "uuid";
 import {connect, useDispatch} from "react-redux";
 import {chosenCard, flips, gameStack, wonCard} from "../redux/selectors";
-import {NavLink, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 const GameBoard = ({gameStack, flips, wonCard, chosenCard}) => {
     const dispatch = useDispatch()

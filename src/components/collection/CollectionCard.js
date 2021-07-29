@@ -16,11 +16,13 @@ const CollectionCard = ({currentCard, isLoading}) => {
             <span className="Card_title">{currentCard.name}</span>
             <div className="Card_type">
                 <h4>Type</h4>
-                {currentCard.pokemon_data.type.map(el => <span key={uuidv4()}>{` ${el}`}</span>)}
+                {currentCard.pokemon_data.type.map(el => <span key={uuidv4()}
+                                                               className="Pokemon_Type">{` ${el}`}</span>)}
             </div>
             <ul className="Card_ability_list">
                 <h4> Abilities </h4>
-                {currentCard.pokemon_data.abilities.map(el => <li key={uuidv4()}>{el.name}</li>)}
+                {currentCard.pokemon_data.abilities.map(el => <li key={uuidv4()}
+                                                                  className="Pokemon_abilities">{el.name}</li>)}
             </ul>
             <NavLink to="/CollectionPage"> <img src={crossBtn} className="Exit_btn Exit_description" alt=""
             /></NavLink>

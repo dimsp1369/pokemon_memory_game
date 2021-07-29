@@ -197,7 +197,7 @@ body {
 /* GameOver Page */
 
 .GameOver_result {
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .GameOver_result img {
@@ -219,7 +219,7 @@ body {
 
 .GameOver_title {
     top: 2%;
-    left: 35%;
+    left: 32%;
 }
 
 /* Collection Page  */
@@ -255,6 +255,7 @@ body {
     width: 800px;
     height: 700px;
     padding: 10px;
+    color: darkred;
 }
 
 .Card_img {
@@ -279,20 +280,38 @@ body {
     text-align: center;
 }
 
+.Pokemon_Type {
+    border: 1px black solid;
+    border-radius: 40px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: white;
+    color: blue;
+    text-transform: capitalize;
+    font-size: 28px;
+    font-family: "Roboto Thin", monospace;
+}
+
 .Card_ability_list {
     position: absolute;
     top: 320px;
     right: 580px;
-    font-family: "Roboto Thin", monospace;
-    font-size: 28px;
+    font-size: 32px;
     color: darkred;
+}
+
+.Pokemon_abilities {
+    text-transform: capitalize;
+    font-family: "Roboto Thin", monospace;
+    color: blue;
+    font-size: 28px;
 }
 
 .Card_type {
     position: absolute;
     text-align: center;
     top: 120px;
-    right: 260px;
+    right: 200px;
     font-size: 32px;
 }
 
@@ -305,8 +324,15 @@ body {
 
 .Credit_Container {
     display: flex;
+    flex-direction: column;
     height: 100vh;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Credit_Links_Stack {
+    position: relative;
+    bottom: 20px;
 }
 
 .Credit_Exit {
@@ -314,28 +340,51 @@ body {
     left: 600px;
 }
 
+.Credit_Stack_title {
+    position: relative;
+    left: 200px;
+}
 
-.Credit_Links_Stack {
-
+.Credit_Contacts_title {
+    position: relative;
+    bottom: 50px;
+    left: 50px;
 }
 
 .Credit_Links_Contacts {
-
+    position: relative;
+    bottom: 50px;
 }
 
 .Credits_PokeApi {
     width: 212px;
     height: 78px;
+    position: relative;
+    bottom: 50px;
 }
 
 .Credits_github {
     width: 200px;
     height: 200px;
+    position: relative;
+    bottom: 30px;
 }
 
 .Credits_linkedin {
     width: 257px;
     height: 257px;
+}
+
+.Credits_React {
+    width: 300px;
+    height: 200px;
+}
+
+.Credits_Redux {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    bottom: 20px;
 }
 
 /* Spinner */
