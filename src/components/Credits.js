@@ -1,9 +1,33 @@
 import React from 'react';
+import {crossBtn, gitHub, linkeDin, pokeApi, reactImg, reduxImg} from "../assets/img/img";
+import {backToMain} from "../redux/actions/actions";
+import {NavLink} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 const Credits = () => {
-    return (
-        <div>
+    const dispatch = useDispatch()
 
+    return (
+        <div className="Credit_Container">
+            <span className="Title">CREDITS</span>
+            <NavLink to="/">
+                <img className="Exit_btn Credit_Exit" src={crossBtn} alt="" onClick={() => dispatch(backToMain())}/>
+            </NavLink>
+            <span className="Title">Source</span>
+            <div className="Credit_Links_Stack">
+                <a href="https://pokeapi.co/" target="_blank"><img src={pokeApi} alt="pokeAPI"
+                                                                   className="Credits_PokeApi"/></a>
+                <img src={reactImg} alt="React" className="Credits_PokeApi"/>
+                <img src={reduxImg} alt="Redux" className="Credits_PokeApi"/>
+            </div>
+            <span className="Title">Contacts</span>
+            <div className="Credit_Links_Contacts">
+                <a href="https://github.com/dimsp1369" target="_blank"><img src={gitHub} alt="github"
+                                                                            className="Credits_github"/></a>
+                <a href="https://www.linkedin.com/in/dmitrii-spiridonov-432b2aa4/" target="_blank"><img src={linkeDin}
+                                                                                                        alt="linkedin"
+                                                                                                        className="Credits_linkedin"/></a>
+            </div>
         </div>
     );
 };

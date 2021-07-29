@@ -53,6 +53,15 @@ body {
     left: 17%;
 }
 
+.Title {
+    font-size: 64px;
+    font-family: "PokemonS", monospace;
+    color: #1e69ff;
+    text-shadow: 5px 5px 5px #d7c956;
+    position: absolute;
+    letter-spacing: 10px;
+}
+
 /* App Page */
 
 .App {
@@ -60,7 +69,6 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 70% 100%;
-    /*min-width: 100vh;*/
     min-height: 100vh;
 }
 
@@ -74,17 +82,8 @@ body {
     box-sizing: border-box;
 }
 
-.Title {
-    font-size: 64px;
-    font-family: "PokemonS", monospace;
-    color: #1e69ff;
-    text-shadow: 5px 5px 5px #d7c956;
-    width: 900px;
-    height: 100px;
-    position: absolute;
+.MainMenu_title {
     top: 30%;
-    text-align: center;
-    letter-spacing: 5px;
 }
 
 .Logo {
@@ -218,10 +217,9 @@ body {
     left: calc(50% - 150px);
 }
 
-.Result_title {
-    position: absolute;
+.GameOver_title {
     top: 2%;
-    left: 26%;
+    left: 35%;
 }
 
 /* Collection Page  */
@@ -301,6 +299,43 @@ body {
 .Exit_description {
     left: 61em;
     top: -100px;
+}
+
+/* CreditComponent */
+
+.Credit_Container {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+}
+
+.Credit_Exit {
+    position: relative;
+    left: 600px;
+}
+
+
+.Credit_Links_Stack {
+
+}
+
+.Credit_Links_Contacts {
+
+}
+
+.Credits_PokeApi {
+    width: 212px;
+    height: 78px;
+}
+
+.Credits_github {
+    width: 200px;
+    height: 200px;
+}
+
+.Credits_linkedin {
+    width: 257px;
+    height: 257px;
 }
 
 /* Spinner */

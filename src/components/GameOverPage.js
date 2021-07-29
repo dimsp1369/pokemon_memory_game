@@ -14,11 +14,11 @@ const GameOverPage = ({gameStack, flips, wonCard}) => {
             <>
                 {flips !== 0 || wonCard.length === gameStack.length ?
                     <>
-                        <span className='Title Result_title'>You match 'em all</span>
+                        <span className='Title GameOver_title'>You match 'em all</span>
                         <img src={winImg} alt="Win"/>
                     </> :
                     <>
-                        <span className='Title Result_title'>You lose them</span>
+                        <span className='Title GameOver_title'>You lose them</span>
                         <img src={loseImg} alt="Lose"/>
                     </>}
             </>

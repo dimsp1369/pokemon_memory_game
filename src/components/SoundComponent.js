@@ -8,7 +8,6 @@ import {isMusicPlay} from "../redux/selectors";
 
 
 const SoundComponent = ({isMusicPlay}) => {
-
     const dispatch = useDispatch()
 
     return (

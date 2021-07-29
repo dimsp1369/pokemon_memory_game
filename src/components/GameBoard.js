@@ -7,7 +7,6 @@ import {chosenCard, flips, gameStack, wonCard} from "../redux/selectors";
 import {NavLink, useHistory} from "react-router-dom";
 
 const GameBoard = ({gameStack, flips, wonCard, chosenCard}) => {
-
     const dispatch = useDispatch()
     let history = useHistory()
 
@@ -31,10 +30,8 @@ const GameBoard = ({gameStack, flips, wonCard, chosenCard}) => {
 
     return (
         <div className="Card_wrap_container">
-            <NavLink to="/">
-                <img className="Exit_btn" src={crossBtn} alt="" onClick={() => dispatch(backToMain())}/>
-            </NavLink>
-            <div className='Flips'>Flips - {flips}</div>
+
+        <div className='Flips'>Flips - {flips}</div>
             <div className="Card_container">
                 {gameStack.map((pokemon, index) => <div key={uuidv4()} className="Card Card_flip"
                                                         onClick={pokemon.active && chosenCard.length !== 2 ? () => dispatch(flipCard(index, pokemon)) : null}>

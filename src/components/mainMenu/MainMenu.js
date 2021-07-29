@@ -14,7 +14,7 @@ const MainMenu = () => {
     return (
         <nav className="MainMenu_container">
             <img className="Logo" src={logo} alt="LOGO"/>
-            <span className='Title'>Match 'em All!</span>
+            <span className='Title MainMenu_title'>Match 'em All!</span>
             <div className="MainMenu_Btns">
                 <div className="StartBtn_menu">
                     <button className="Btn StartBtn">Start Game</button>

@@ -15,7 +15,6 @@ import {loading} from "./redux/actions/actions";
 
 
 function App({isLoading}) {
-
     const dispatch = useDispatch()
     // Get pokemon list
     useEffect(() => {
@@ -35,7 +34,6 @@ function App({isLoading}) {
                 <Route path="/Credits" render={() => <Credits/>}/>
                 <Route path="/CollectionCard" render={() => <CollectionCard/>}/>
             </Switch>
-
         </div>
     );
 }
