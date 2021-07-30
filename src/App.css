@@ -196,15 +196,11 @@ body {
 
 /* GameOver Page */
 
-.GameOver_result {
-    /*text-align: center;*/
-}
-
 .GameOver_result img {
     position: absolute;
     top: 25%;
     left: calc(50% - 165px);
-    width: 350px;
+    width: 380px;
     height: 350px;
 }
 
@@ -219,7 +215,7 @@ body {
 
 .GameOver_title {
     top: 2%;
-    left: 32%;
+    left: 33%;
 }
 
 /* Collection Page  */

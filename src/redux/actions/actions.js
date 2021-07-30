@@ -9,7 +9,7 @@ import {
 } from "../types";
 
 // gameReducer types
-export const createNewGame = (level = 2) => ({
+export const createNewGame = (level = 2.5) => ({
     type: CREATE_NEW_GAME,
     payload: {level}
 })

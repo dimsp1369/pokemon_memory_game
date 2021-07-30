@@ -9,7 +9,7 @@ import {NavLink} from "react-router-dom";
 const MainMenu = () => {
 
     const dispatch = useDispatch()
-    const leveling = [[2, 'Easy'], [1.5, 'Medium'], [1.3, 'Hard']]
+    const leveling = [[2.5, 'Easy'], [2, 'Medium'], [1.5, 'Hard']]
 
     return (
         <nav className="MainMenu_container">
