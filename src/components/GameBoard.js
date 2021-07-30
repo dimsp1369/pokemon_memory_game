@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
-import {Pokeball} from "../assets/img/img";
-import {addToCollection, checkMatches, flipCard} from "../redux/actions/actions";
+import {crossBtn, Pokeball} from "../assets/img/img";
+import {addToCollection, backToMain, checkMatches, flipCard} from "../redux/actions/actions";
 import {v4 as uuidv4} from "uuid";
 import {connect, useDispatch} from "react-redux";
 import {chosenCard, flips, gameStack, wonCard} from "../redux/selectors";
-import {useHistory} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 
 const GameBoard = ({gameStack, flips, wonCard, chosenCard}) => {
     const dispatch = useDispatch()
@@ -30,8 +30,10 @@ const GameBoard = ({gameStack, flips, wonCard, chosenCard}) => {
 
     return (
         <div className="Card_wrap_container">
-
-        <div className='Flips'>Flips - {flips}</div>
+            <NavLink to="/">
+                <img className="Exit_btn" src={crossBtn} alt="" onClick={() => dispatch(backToMain())}/>
+            </NavLink>
+            <div className='Flips'>Flips - {flips}</div>
             <div className="Card_container">
                 {gameStack.map((pokemon, index) => <div key={uuidv4()} className="Card Card_flip"
                                                         onClick={pokemon.active && chosenCard.length !== 2 ? () => dispatch(flipCard(index, pokemon)) : null}>
