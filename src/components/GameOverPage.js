@@ -5,6 +5,19 @@ import {backToMain, createNewGame} from "../redux/actions/actions";
 import {flips, gameStack, wonCard} from "../redux/selectors";
 import {NavLink} from "react-router-dom";
 
+/**
+ * Game over screen: shows the win image when flips remain or all cards were
+ * matched, otherwise the lose image, plus "Try Again" (starts a new game) and
+ * "Main Menu" buttons.
+ *
+ * @param {Object} props
+ * @param {Array<{name: string, url: string, id: number, img_url: string, visible: boolean, active: boolean, isOpen: boolean}>} props.gameStack
+ *     The 20 board cards of the finished game.
+ * @param {number|null} props.flips Remaining flips (0 means the player ran out).
+ * @param {Array<{name: string, url: string, id: number, img_url: string, visible: boolean, active: boolean, isOpen: boolean}>} props.wonCard
+ *     Cards matched during the game.
+ * @returns {JSX.Element}
+ */
 const GameOverPage = ({gameStack, flips, wonCard}) => {
 
     const dispatch = useDispatch()
@@ -34,6 +47,12 @@ const GameOverPage = ({gameStack, flips, wonCard}) => {
     );
 };
 
+/**
+ * Maps the game state to GameOverPage props.
+ *
+ * @param {Object} state The root Redux state.
+ * @returns {Object} `{gameStack, flips, wonCard}` read from `state.gameReducer`.
+ */
 const mapStateToProps = (state) => {
     return {
         gameStack: gameStack(state),

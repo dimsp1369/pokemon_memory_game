@@ -6,6 +6,21 @@ import {connect, useDispatch} from "react-redux";
 import {chosenCard, flips, gameStack, wonCard} from "../redux/selectors";
 import {NavLink, useHistory} from "react-router-dom";
 
+/**
+ * Game board screen: renders the shuffled Pokémon cards and the remaining flips,
+ * checks face-up pairs for a match, adds matched cards to the collection and
+ * navigates to "/GameOver" when all cards are matched or flips reach 0.
+ *
+ * @param {Object} props
+ * @param {Array<{name: string, url: string, id: number, img_url: string, visible: boolean, active: boolean, isOpen: boolean}>} props.gameStack
+ *     The 20 shuffled board cards (10 pairs); each also carries a `_id` uuid distinguishing the pair copies.
+ * @param {number|null} props.flips Remaining flips (null outside a game).
+ * @param {Array<{name: string, url: string, id: number, img_url: string, visible: boolean, active: boolean, isOpen: boolean}>} props.wonCard
+ *     Cards matched so far.
+ * @param {Array<{name: string, url: string, id: number, img_url: string, visible: boolean, active: boolean, isOpen: boolean}>} props.chosenCard
+ *     0–2 face-up cards awaiting a match check.
+ * @returns {JSX.Element}
+ */
 const GameBoard = ({gameStack, flips, wonCard, chosenCard}) => {
     const dispatch = useDispatch()
     let history = useHistory()
@@ -45,6 +60,12 @@ const GameBoard = ({gameStack, flips, wonCard, chosenCard}) => {
         </div>
     );
 };
+/**
+ * Maps the game state to GameBoard props.
+ *
+ * @param {Object} state The root Redux state.
+ * @returns {Object} `{gameStack, flips, wonCard, chosenCard}` read from `state.gameReducer`.
+ */
 const mapStateToProps = (state) => {
     return {
         gameStack: gameStack(state),
