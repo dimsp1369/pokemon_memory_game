@@ -39,7 +39,8 @@ const initialState = {
  * Handled actions:
  * - `IS_LOADING`: sets `isLoading` to true.
  * - `GET_POKEMONS`: stores the fetched cards (`payload`) in `pokemons` and clears `isLoading`.
- * - `CREATE_NEW_GAME`: picks 10 random cards from `pokemons`, duplicates them into pairs,
+ * - `CREATE_NEW_GAME`: picks 10 random cards from `pokemons` (with replacement, so a Pokémon
+ *   may repeat), duplicates them into pairs,
  *   shuffles them and gives each a unique `_id` (uuid) to build the 20-card `gameStack`;
  *   resets `wonCard`/`chosenCard` and sets `flips = ceil(20 × payload.level)`.
  * - `FLIP_CARD`: unless two cards are already chosen, turns the card at `payload.index`
