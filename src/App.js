@@ -14,6 +14,14 @@ import CollectionCard from "./components/collection/CollectionCard";
 import {loading} from "./redux/actions/actions";
 
 
+/**
+ * Root component: fetches the Pokémon list on mount and renders the routed pages
+ * (main menu, collection, game board, game over, credits, collection card),
+ * or a loader while the list is loading.
+ * @param {Object} props
+ * @param {boolean} props.isLoading - Whether the Pokémon list is still being fetched.
+ * @returns {JSX.Element}
+ */
 function App({isLoading}) {
     const dispatch = useDispatch()
     // Get pokemon list
@@ -38,6 +46,11 @@ function App({isLoading}) {
     );
 }
 
+/**
+ * Maps the Redux state to `App` props.
+ * @param {Object} state - The root Redux state.
+ * @returns {Object} `{isLoading: boolean}` - the game state's loading flag.
+ */
 const mapStateToProps = (state) => {
     return {
         isLoading: isLoading(state),
