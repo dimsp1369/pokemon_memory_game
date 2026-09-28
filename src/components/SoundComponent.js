@@ -7,6 +7,14 @@ import {connect, useDispatch} from "react-redux";
 import {isMusicPlay} from "../redux/selectors";
 
 
+/**
+ * Background theme music player with a toggle button that dispatches `playMusic`
+ * to switch the music on or off.
+ *
+ * @param {Object} props
+ * @param {boolean} props.isMusicPlay - Whether the theme music is currently playing.
+ * @returns {JSX.Element}
+ */
 const SoundComponent = ({isMusicPlay}) => {
     const dispatch = useDispatch()
 
@@ -20,6 +28,12 @@ const SoundComponent = ({isMusicPlay}) => {
         </div>
     );
 };
+/**
+ * Maps the music flag from the game state to props.
+ *
+ * @param {Object} state - The root Redux state.
+ * @returns {Object} `{isMusicPlay: boolean}`.
+ */
 const mapStateToProps = (state) => {
     return {
         isMusicPlay: isMusicPlay(state),

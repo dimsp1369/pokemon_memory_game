@@ -4,6 +4,12 @@ import {backToMain} from "../redux/actions/actions";
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
 
+/**
+ * Credits page listing the tech stack and author contacts; the close button dispatches
+ * `backToMain` and navigates back to the main menu.
+ *
+ * @returns {JSX.Element}
+ */
 const Credits = () => {
     const dispatch = useDispatch()
 

@@ -6,6 +6,13 @@ import {createNewGame, pagination} from "../../redux/actions/actions";
 import {NavLink} from "react-router-dom";
 
 
+/**
+ * Main menu screen: logo, title, level buttons (Easy / Medium / Hard) that start a new
+ * game via `createNewGame` and navigate to the game board, plus links to the collection
+ * (dispatching `pagination`) and the credits page.
+ *
+ * @returns {JSX.Element}
+ */
 const MainMenu = () => {
 
     const dispatch = useDispatch()

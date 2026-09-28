@@ -5,6 +5,14 @@ import {pageNumber} from "../../redux/selectors";
 import {v4 as uuidv4} from "uuid";
 import {NavLink} from "react-router-dom";
 
+/**
+ * Page links for the collection; clicking a page number dispatches `openCurrentPage`
+ * and navigates to that page's route.
+ *
+ * @param {Object} props
+ * @param {number[]} props.pageNumber - Available page numbers.
+ * @returns {JSX.Element}
+ */
 const Pagination = ({pageNumber}) => {
 
     const dispatch = useDispatch()
@@ -19,6 +27,12 @@ const Pagination = ({pageNumber}) => {
     );
 };
 
+/**
+ * Maps the collection page numbers from the game state's pagination to props.
+ *
+ * @param {Object} state - The root Redux state.
+ * @returns {Object} `{pageNumber: number[]}`.
+ */
 const mapStateToProps = (state) => {
     return {
         pageNumber: pageNumber(state),
