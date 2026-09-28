@@ -32,6 +32,33 @@ const initialState = {
     }
 }
 
+/**
+ * Game reducer, mounted as `state.gameReducer`. Manages the fetched Pokémon cards,
+ * the game board, flips, the collection view, pagination and music state.
+ *
+ * Handled actions:
+ * - `IS_LOADING`: sets `isLoading` to true.
+ * - `GET_POKEMONS`: stores the fetched cards (`payload`) in `pokemons` and clears `isLoading`.
+ * - `CREATE_NEW_GAME`: picks 10 random cards from `pokemons`, duplicates them into pairs,
+ *   shuffles them and gives each a unique `_id` (uuid) to build the 20-card `gameStack`;
+ *   resets `wonCard`/`chosenCard` and sets `flips = ceil(20 × payload.level)`.
+ * - `FLIP_CARD`: unless two cards are already chosen, turns the card at `payload.index`
+ *   face-up and inactive, adds `payload.pokemon` to `chosenCard` and decrements `flips`.
+ * - `BACK_TO_MAINMENU`: clears `gameStack`, `chosenCard`, `wonCard` and resets `flips` to null.
+ * - `CHECK_MATCHES`: compares the two chosen cards by name; on a match adds both to `wonCard`,
+ *   otherwise flips them back face-down and active. Always clears `chosenCard`.
+ * - `OPEN_COLLECTION`: resets pagination (`currentPage` to 1, empty `pageNumber` and `currentCards`).
+ * - `ADD_TO_COLLECTION`: sets `isOpen = true` on every card in `pokemons` whose name is in `wonCard`.
+ * - `GET_CARD_DESCRIPTION`: stores `payload` as `collection.cardDescription` and clears `isLoading`.
+ * - `PAGINATION`: appends page numbers (1..ceil(pokemons.length / cardPerPage)) to `pageNumber`
+ *   and sets `currentCards` to the first page of `pokemons`.
+ * - `CURRENT_PAGE`: sets `currentPage` to `payload` and `currentCards` to that page's slice of `pokemons`.
+ * - `IS_MUSIC_PLAY`: sets `isMusicPlay` to `payload`.
+ *
+ * @param {Object} [state=initialState] - The game state.
+ * @param {{type: string, payload?: *}} action - The dispatched action.
+ * @returns {Object} The next game state (the unchanged state for unknown actions).
+ */
 const reducer = (state = initialState, action) => {
     let newPokemonList = [...state.pokemons]
     let newGameStack = [...state.gameStack]
