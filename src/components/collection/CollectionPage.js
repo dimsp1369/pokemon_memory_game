@@ -7,6 +7,16 @@ import {openCardDescription} from "../../redux/actions/asyncActions";
 import {currentCards} from "../../redux/selectors";
 import {NavLink} from "react-router-dom";
 
+/**
+ * Collection page: shows the current page of Pokémon cards, with unlocked cards
+ * (`isOpen`) linking to their detail view and locked cards rendered as blurred
+ * silhouettes. Includes a "Main menu" button and pagination controls.
+ *
+ * @param {Object} props
+ * @param {Array<{name: string, url: string, id: number, img_url: string, visible: boolean, active: boolean, isOpen: boolean}>} props.currentCards
+ *     Pokémon cards on the current collection page (`pagination.currentCards`).
+ * @returns {JSX.Element}
+ */
 const CollectionPage = ({currentCards}) => {
 
         const dispatch = useDispatch()
@@ -44,6 +54,12 @@ const CollectionPage = ({currentCards}) => {
     }
 ;
 
+/**
+ * Maps the Pokémon cards of the current collection page from the store to props.
+ *
+ * @param {Object} state The root Redux state.
+ * @returns {Object} Props `currentCards` (array of Pokémon cards on the current page).
+ */
 const mapStateToProps = (state) => {
     return {
         currentCards: currentCards(state),

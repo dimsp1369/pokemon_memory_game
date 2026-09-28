@@ -6,6 +6,18 @@ import {currentCard, isLoading} from "../../redux/selectors";
 import {NavLink} from "react-router-dom";
 import Loader from "../utils/Loader";
 
+/**
+ * Detail view of a single unlocked Pokémon card from the collection: image, name,
+ * types and abilities, plus a close button linking back to the collection page.
+ * Shows a Loader while the card's details are being fetched.
+ *
+ * @param {Object} props
+ * @param {{name: string, url: string, id: number, img_url: string, visible: boolean, active: boolean, isOpen: boolean, pokemon_data: {abilities: Array<{name: string, effect: string}>, type: string[]}}} props.currentCard
+ *     The Pokémon card open in the collection (`collection.cardDescription`), enriched with
+ *     `pokemon_data` by `openCardDescription`.
+ * @param {boolean} props.isLoading Whether card details are still loading.
+ * @returns {JSX.Element}
+ */
 const CollectionCard = ({currentCard, isLoading}) => {
 
     if (isLoading) return <Loader/>
@@ -30,6 +42,13 @@ const CollectionCard = ({currentCard, isLoading}) => {
     );
 };
 
+/**
+ * Maps the open collection card and the loading flag from the store to props.
+ *
+ * @param {Object} state The root Redux state.
+ * @returns {Object} Props `currentCard` (the Pokémon card open in the collection) and
+ *     `isLoading` (boolean loading flag).
+ */
 const mapStateToProps = (state) => {
     return {
         currentCard: currentCard(state),
